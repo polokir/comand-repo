@@ -2,6 +2,7 @@ import { Component, useEffect, useState } from 'react';
 
 import * as ImageService from 'service/image-service';
 import { Button, SearchForm, Grid, GridItem, Text, CardItem } from 'components';
+import Loader from '../components/Loader/Loader';
 
 export const Gallery = () => {
   const [query, setQuery] = useState('');
@@ -9,6 +10,8 @@ export const Gallery = () => {
   const [images, setImages] = useState([]);
   const [isShowLoadMore, setIsShowLoadMore] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const handleSubmit = query => {
     setQuery(query);
     setPage(1);
@@ -17,14 +20,20 @@ export const Gallery = () => {
   };
   useEffect(() => {
     if (!query) return;
-    ImageService.getImages(query, page).then(res => {
-      if (res.photos.length === 0) {
-        setIsEmpty(true);
-        return;
-      }
-      setImages(prevImages => [...prevImages, ...res.photos]);
-      setIsShowLoadMore(page < Math.ceil(res.total_results / 15));
-    });
+    setIsLoading(true);
+    ImageService.getImages(query, page)
+      .then(res => {
+        if (res.photos.length === 0) {
+          setIsEmpty(true);
+          return;
+        }
+        setImages(prevImages => [...prevImages, ...res.photos]);
+        setIsShowLoadMore(page < Math.ceil(res.total_results / 15));
+      })
+      .catch(error => {
+        setError(error.message);
+      })
+      .finally(() => setIsLoading(false));
   }, [query, page]);
 
   const handleLoadMore = () => {
@@ -47,6 +56,10 @@ export const Gallery = () => {
       {isEmpty && (
         <Text textAlign="center">Sorry. There are no images ... 😭</Text>
       )}
+      {error && (
+        <Text textAlign="center">{error} There are no images ... 😭</Text>
+      )}
+      {isLoading && <Loader />}
     </>
   );
 };
