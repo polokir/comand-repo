@@ -1,9 +1,13 @@
-import { Component, useState } from 'react';
+import { useState } from 'react';
 
 import { FiSearch } from 'react-icons/fi';
 import { FormBtn, InputSearch, SearchFormStyled } from './SearchForm.styled';
+import { useContext } from 'react';
+import testContext from 'context/testContext';
 
 export const SearchForm = ({ handleSubmit }) => {
+  const data = useContext(testContext);
+  // console.log(data);
   const [query, setQuery] = useState('');
   const onSubmitHandler = e => {
     e.preventDefault();
