@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/comand-repo/static/css/main.a7d139de.css",
-    "main.js": "/comand-repo/static/js/main.d0202346.js",
+    "main.js": "/comand-repo/static/js/main.764f487f.js",
     "index.html": "/comand-repo/index.html",
     "main.a7d139de.css.map": "/comand-repo/static/css/main.a7d139de.css.map",
-    "main.d0202346.js.map": "/comand-repo/static/js/main.d0202346.js.map"
+    "main.764f487f.js.map": "/comand-repo/static/js/main.764f487f.js.map"
   },
   "entrypoints": [
     "static/css/main.a7d139de.css",
-    "static/js/main.d0202346.js"
+    "static/js/main.764f487f.js"
   ]
 }
